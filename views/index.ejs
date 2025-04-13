@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="dark transition-colors duration-500">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pratyush Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'gradient': 'gradient 8s ease infinite',
+            'pulse-slow': 'pulse 6s ease infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            gradient: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            }
+          }
+        },
+      },
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <header class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-200/10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0">
+      <!-- Left: Logo & Greeting -->
+      <div class="flex items-center gap-4">
+        <a href="/blog" class="group">
+          <h1 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 group-hover:bg-gradient-to-l transition-all duration-500">
+            <i class="fas fa-pen-fancy mr-2"></i>Pratyush Blog
+          </h1>
+        </a>
+        <span class="text-sm text-gray-600 dark:text-gray-300">
+          <% if (name) { %>
+            <h1 class="flex items-center gap-1">Welcome, <span class="font-medium"><%= name %></span><span class="animate-wiggle inline-block">👋</span></h1>
+          <% } else { %>
+            <h1 class="flex items-center gap-1">Hello <span class="animate-wiggle inline-block">👋</span></h1>
+          <% } %>
+        </span>
+      </div>
+
+      <!-- Right: Buttons -->
+      <div class="flex items-center gap-3">
+        <% if (!name) { %>
+          <a href="/login"
+            class="text-sm px-4 py-1.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full shadow hover:shadow-lg hover:from-blue-600 hover:to-blue-700 transition-all font-medium flex items-center gap-2">
+            <i class="fas fa-sign-in-alt text-xs"></i> Login
+          </a>
+
+          <a href="/signup"
+            class="text-sm px-4 py-1.5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-full shadow hover:shadow-lg hover:from-green-600 hover:to-green-700 transition-all font-medium flex items-center gap-2">
+            <i class="fas fa-user-plus text-xs"></i> Signup
+          </a>
+        <% } else { %>
+          <a href="/logout"
+            class="text-sm px-4 py-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full shadow hover:shadow-lg hover:from-red-600 hover:to-red-700 transition-all font-medium flex items-center gap-2">
+            <i class="fas fa-sign-out-alt text-xs"></i> Logout
+          </a>
+        <% } %>
+
+        <!-- Dark Mode Toggle -->
+        <button id="darkToggle"
+          class="bg-gray-200 dark:bg-gray-700 p-2 rounded-full text-xl transition-all duration-300 hover:scale-110 hover:shadow-md flex items-center justify-center w-10 h-10">
+          <span id="themeIcon" class="text-lg">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    const toggleBtn = document.getElementById("darkToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function updateIcon() {
+      if (document.documentElement.classList.contains('dark')) {
+        themeIcon.textContent = "☀️";
+      } else {
+        themeIcon.textContent = "🌙";
+      }
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      document.documentElement.classList.toggle("dark");
+      toggleBtn.classList.add("rotate-[360deg]");
+      setTimeout(() => toggleBtn.classList.remove("rotate-[360deg]"), 500);
+
+      const isDark = document.documentElement.classList.contains("dark");
+      localStorage.setItem("darkMode", isDark);
+      updateIcon();
+    });
+
+    // Initial load based on preference
+    if (localStorage.getItem("darkMode") === "true") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    updateIcon();
+  </script>
+
+  <!-- Hero Section -->
+  <section class="max-w-4xl mx-auto mt-10 px-4 sm:px-6 text-center">
+    <h2 class="text-4xl font-extrabold mb-2">Welcome to the Chaos 🌀</h2>
+    <p class="text-gray-600 dark:text-gray-300 text-lg mt-2">
+      Random thoughts, dev rants, caffeine-fueled insights & 3AM wisdom by
+      <strong class="text-blue-500">Pratyush</strong>.
+    </p>
+  </section>
+
+  <!-- Blog Posts -->
+  <main class="max-w-3xl mx-auto mt-10 px-4 sm:px-6 space-y-8">
+    <!-- Sample blog posts -->
+    <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md transition-transform transform hover:scale-105">
+      <h3 class="text-2xl font-bold mb-2">
+        Why Coffee is a Developer’s Best Friend ☕
+      </h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        Every coder has their secret fuel...
+      </p>
+      <a href="#" class="text-blue-500 dark:text-blue-400 hover:underline mt-2 inline-block">Read more →</a>
+    </article>
+
+    <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md transition-transform transform hover:scale-105">
+      <h3 class="text-2xl font-bold mb-2">
+        My Cat Walked on the Keyboard...
+      </h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        This unexpected accident...
+      </p>
+      <a href="#" class="text-blue-500 dark:text-blue-400 hover:underline mt-2 inline-block">Read more →</a>
+    </article>
+
+    <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md transition-transform transform hover:scale-105">
+      <h3 class="text-2xl font-bold mb-2">
+        Thoughts at 3AM – A Developer’s Confession
+      </h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        Late nights bring deep thoughts...
+      </p>
+      <a href="#" class="text-blue-500 dark:text-blue-400 hover:underline mt-2 inline-block">Read more →</a>
+    </article>
+
+    <article class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md transition-transform transform hover:scale-105">
+      <h3 class="text-2xl font-bold mb-2">
+        Debugging: The Art of Talking to Yourself
+      </h3>
+      <p class="text-gray-700 dark:text-gray-300">
+        It’s not insanity if it’s for a good cause...
+      </p>
+      <a href="#" class="text-blue-500 dark:text-blue-400 hover:underline mt-2 inline-block">Read more →</a>
+    </article>
+  </main>
+
+    <!-- Dev Tools Section -->
+    <section class="max-w-3xl mx-auto mt-16 px-4 sm:px-6">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow">
+        <h3 class="text-2xl font-bold mb-4 flex items-center gap-3">
+          <span class="bg-blue-100 dark:bg-blue-900/50 p-2 rounded-lg"><i class="fas fa-tools text-blue-600 dark:text-blue-400"></i></span>
+          <span>My Dev Toolkit</span>
+        </h3>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <li class="flex items-start gap-3 hover:bg-white/50 dark:hover:bg-gray-700/50 p-3 rounded-lg transition-colors">
+            <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 p-2 rounded-lg"><i class="fab fa-react"></i></span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">React.js</strong>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Component-based UI done right</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 hover:bg-white/50 dark:hover:bg-gray-700/50 p-3 rounded-lg transition-colors">
+            <span class="bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 p-2 rounded-lg"><i class="fab fa-js"></i></span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">JavaScript</strong>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">The language of the web</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 hover:bg-white/50 dark:hover:bg-gray-700/50 p-3 rounded-lg transition-colors">
+            <span class="bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 p-2 rounded-lg"><i class="fas fa-code"></i></span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">VS Code</strong>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Where all the magic happens</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3 hover:bg-white/50 dark:hover:bg-gray-700/50 p-3 rounded-lg transition-colors">
+            <span class="bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 p-2 rounded-lg"><i class="fas fa-database"></i></span>
+            <div>
+              <strong class="text-gray-900 dark:text-white">MongoDB + PostgreSQL</strong>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">Because sometimes I like both NoSQL and SQL</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  <!-- Dev Quotes -->
+  <section class="max-w-3xl mx-auto mt-16 px-4 sm:px-6">
+    <h3 class="text-xl font-semibold mb-4">📢 Dev Quotes</h3>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+      <p class="italic text-gray-600 dark:text-gray-400">
+        "Any fool can write code that a computer can understand. Good
+        programmers write code that humans can understand." – Martin Fowler
+      </p>
+    </div>
+    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mt-4">
+      <p class="italic text-gray-600 dark:text-gray-400">
+        "First, solve the problem. Then, write the code." – John Johnson
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-16 py-6 px-4 sm:px-0 text-center text-sm text-gray-500 dark:text-gray-400">
+    © 2025
+    <a href="https://github.com/pratyushranjn" class="text-blue-500 hover:underline" target="_blank"
+      rel="noopener noreferrer">Pratyush</a>
+    — Made with ☕, 😴, and lots of <code>console.log()</code>
+  </footer>
+  
+</body>
+</html>

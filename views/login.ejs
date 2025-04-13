@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="dark transition-colors duration-300">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Pratyush Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans flex items-center justify-center h-screen">
+
+  <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-md w-full max-w-sm">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Login</h2>
+      <button id="darkToggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded-full text-xl">🌙</button>
+    </div>
+
+    <form action="/login" method="post" novalidate>
+      <!-- Email -->
+      <div class="mb-4">
+        <label for="email" class="block mb-1 font-medium">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="peer w-full px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 invalid:border-red-500 focus:invalid:ring-red-400"
+          placeholder="you@example.com"
+        />
+        <p class="mt-1 text-sm text-red-500 invisible peer-invalid:visible">Please enter a valid email.</p>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <label for="password" class="block mb-1 font-medium">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="peer w-full px-4 py-2 rounded-lg border dark:bg-gray-700 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 invalid:border-red-500 focus:invalid:ring-red-400"
+          placeholder="••••••••"
+        />
+        <p class="mt-1 text-sm text-red-500 invisible peer-invalid:visible">Password is required.</p>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Login</button>
+    </form>
+
+    <p class="mt-4 text-sm text-center">Don't have an account? 
+      <a href="/signup" class="text-blue-500 hover:underline">Sign up</a>
+    </p>
+  </div>
+
+  <!-- Dark Mode Toggle Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("darkToggle").addEventListener("click", () => {
+        document.documentElement.classList.toggle("dark");
+      });
+    });
+  </script>
+
+</body>
+</html>
